@@ -83,12 +83,13 @@
         ;; accept auth code callback, get access_token (via POST)
 
         ;; http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.1.2
-        (let [{:keys [params code session]} request
-              response-state (:state params)
+        (let [{:keys [params code session]
+               :or {code nil
+                    session nil}} request
               session-state  (extract-anti-forgery-token request)]
 
           (if (and (not (nil? code))
-                   (= response-state session-state))
+                   (= (:state params) session-state))
 
             (let [access-token-uri (:access-token-uri uri-config )
                   token-url (assoc-in access-token-uri [:query]
