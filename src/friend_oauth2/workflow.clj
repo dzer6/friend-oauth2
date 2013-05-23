@@ -51,7 +51,7 @@
       (clojure.string/split  #"/")
       clojure.string/join
       keyword))
-   
+
 
 
 (defn make-auth
@@ -86,7 +86,7 @@
         (let [{:keys [params code session]
                :or {code nil
                     session nil}} request
-              session-state  (extract-anti-forgery-token request)]
+                    session-state  (extract-anti-forgery-token request)]
 
           (if (and (not (nil? code))
                    (= (:state params) session-state))
@@ -99,9 +99,9 @@
                   ;; access_token response. Custom function for handling
                   ;; response body is passed in via the :access-token-parsefn
                   access-token (-> token-url
-                                     :url
-                                     (client/post {:form-params (:query token-url)})
-                                     access-token-parsefn)]
+                                   :url
+                                   (client/post {:form-params (:query token-url)})
+                                   access-token-parsefn)]
 
 
               ;; The auth map for a successful authentication:
@@ -116,4 +116,4 @@
                   (format-authentication-uri  anti-forgery-token)
                   ring.util.response/redirect
                   (assoc :session session-with-af-token)))))))))
-    
+
