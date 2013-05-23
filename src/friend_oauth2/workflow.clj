@@ -16,11 +16,13 @@
 (defn format-authentication-uri
   "Formats the client authentication uri"
   [{:keys [authentication-uri]} anti-forgery-token]
-  (str (:url authentication-uri) "?"
-       (ring-codec/form-encode
-        (merge
-         {:state anti-forgery-token}
-         (:query authentication-uri)))))
+  (let [{:keys [url query]} authentication-uri
+        params (-> authentication-uri
+                   :query
+                   (assoc :state anti-forgery-token) ; overrides any :state in query
+                   ring-codec/form-encode)]
+        (str url "?" params))) ;; TODO: use cemerick/url
+
 
 (defn replace-authorization-code
   "Formats the token uri with the authorization code"
