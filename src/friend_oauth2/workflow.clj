@@ -1,4 +1,5 @@
 (ns friend-oauth2.workflow
+  (:use [clojure.string :only (replace-first)])
   (:require [cemerick.friend :as friend]
             [clj-http.client :as client]
             [ring.util.codec :as ring-codec]
@@ -16,11 +17,22 @@
 (defn format-authentication-uri
   "Formats the client authentication uri"
   [{:keys [authentication-uri]} anti-forgery-token]
-  (str (:url authentication-uri) "?"
-       (ring-codec/form-encode
-        (merge
-         {:state anti-forgery-token}
-         (:query authentication-uri)))))
+  (def url
+    (str (:url authentication-uri)
+         "?"
+         (ring-codec/form-encode
+           (merge
+             {:state anti-forgery-token}
+             (:query authentication-uri)
+           )
+         )
+    )
+  )
+  (def scope (-> :query authentication-uri :scope))
+  (replace-first url
+    (ring-codec/form-encode scope)
+    scope)
+)
 
 (defn replace-authorization-code
   "Formats the token uri with the authorization code"
