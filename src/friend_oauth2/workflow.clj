@@ -17,6 +17,7 @@
 (defn format-authentication-uri
   "Formats the client authentication uri"
   [{:keys [authentication-uri]} anti-forgery-token]
+  (println "===> authentication-uri = " authentication-uri ", anti-forgery-token = " anti-forgery-token)
   (def url
     (str (:url authentication-uri)
          "?"

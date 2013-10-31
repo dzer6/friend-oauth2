@@ -1,4 +1,4 @@
-(defproject com.dzer6/friend-oauth2 "0.0.4.0"
+(defproject com.dzer6/friend-oauth2 "0.0.4.1"
   :description "OAuth2 workflow for Friend (https://github.com/cemerick/friend). (Bug reports/contributions welcome!)"
   :url "https://github.com/dzer6/friend-oauth2"
   :license {:name "MIT License"
