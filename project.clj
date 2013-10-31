@@ -5,9 +5,10 @@
             :url "http://dd.mit-license.org"}
 
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [com.cemerick/friend "0.1.5" :exclusions [ring/ring-core slingshot]]
+                 [com.cemerick/friend "0.2.0" :exclusions [ring/ring-core slingshot]]
                  [ring "1.2.0"]
                  [ring/ring-codec "1.0.0"]
+                 [environ "0.4.0"]
                  [clj-http "0.7.7" :exclusions [org.apache.httpcomponents/httpclient slingshot]]
                  [cheshire "5.2.0"]
                  [crypto-random "1.1.0"]]
